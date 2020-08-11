@@ -6,6 +6,5 @@
 # put the overrides in YOUR customize.rb file.
 ###
 
-# The following shows how to override the Nodejs version:
-#
-#normal[:opsworks_nodejs][:version] = '0.10.21'
+# Upload corresponding deb file in my-opsworks-bucket-o-stuff bucket inside /packages/ubuntu/14.04/opsworks-nodejs_<your_nodejs_version>-1_amd64.deb
+normal[:opsworks_nodejs][:version] = '12.16.3'
