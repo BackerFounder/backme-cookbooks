@@ -7,4 +7,4 @@
 ###
 
 # Upload corresponding deb file in my-opsworks-bucket-o-stuff bucket inside /packages/ubuntu/14.04/opsworks-nodejs_<your_nodejs_version>-1_amd64.deb
-normal[:opsworks_nodejs][:version] = '12.16.3'
+# default[:opsworks_nodejs][:version] = '12.16.3'
