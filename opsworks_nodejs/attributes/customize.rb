@@ -6,5 +6,14 @@
 # put the overrides in YOUR customize.rb file.
 ###
 
-# Upload corresponding deb file in my-opsworks-bucket-o-stuff bucket inside /packages/ubuntu/14.04/opsworks-nodejs_<your_nodejs_version>-1_amd64.deb
+###
+# 注意！請勿任意移除此檔案。
+# 保留此檔案並加入 recipe 中才能正常的 override Node.js 的版本，移除會導致 Node.js 回到 1.10.x 的版本。
+#
+# 如何更改版本：
+# 1. 到 S3 bucket my-opsworks-bucket-o-stuff 加上對應版本的 deb 檔： /packages/ubuntu/14.04/opsworks-nodejs_<your_nodejs_version>-1_amd64.deb
+# 2. 到 OpsWorks Stack Dashboard > Stack settings > edit > custom JSON 中修改 opsworks_modejs 的版號
+# 3. 開新機器確認是否 setup 與 configure 流程是否正常
+###
+
 # default[:opsworks_nodejs][:version] = '12.16.3'
