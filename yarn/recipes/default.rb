@@ -8,11 +8,18 @@ when 'debian', 'ubuntu'
     EOH
   end
 
-  execute "apt-get update" do
-    command "apt-get update"
+  execute 'apt-get update' do
+    command 'apt-get update'
   end
 
   apt_package 'yarn'
 else
   raise "Unsupported platform: #{node['platform']}"
+end
+
+ruby_block 'Check Yarn is installed and get the current version' do
+  block do
+    Chef::Resource::RubyBlock.send(:include, Chef::Mixin::ShellOut)
+    Chef::Log.info("The current Yarn version is #{shell_out('yarn -v').stdout}")
+  end
 end
