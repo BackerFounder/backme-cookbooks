@@ -1,8 +1,0 @@
-AllCops:
-  Exclude:
-    - Thorfile
-    - Gemfile
-    - Vagrantfile
-    - vendor/*
-Metrics/LineLength:
-  Max: 120
