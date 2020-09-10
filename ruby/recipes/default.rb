@@ -4,5 +4,6 @@
 #
 # Copyright:: 2020, The Authors, All Rights Reserved.
 
-ruby_build_install ''
-ruby_build_definition '2.6.6'
+rbenv_system_install ''
+rbenv_ruby '2.6.6'
+rbenv_global '2.6.6'
