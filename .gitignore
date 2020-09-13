@@ -1,0 +1,4 @@
+.kitchen/
+.kitchen.local.yml
+cookbooks*.tar.gz
+test/data_bags/*.json
