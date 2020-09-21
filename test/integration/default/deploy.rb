@@ -9,7 +9,6 @@ end
 
 describe key_rsa('/root/.ssh/id_rsa') do
   it { should be_private }
-  it { should be_public }
   its('key_length') { should eq 2048 }
 end
 

@@ -23,11 +23,4 @@ file File.join(node['deploy']['home'], '.ssh', 'id_rsa') do
   only_if do app['app_source'].has_key?('ssh_key') end
 end
 
-file File.join(node['deploy']['home'], '.ssh', 'id_rsa.pub') do
-  owner node['deploy']['user']
-  group node['deploy']['group']
-  content node['deploy']['public_key']
-  mode '0600'
-end
-
 

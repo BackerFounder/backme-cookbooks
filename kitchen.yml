@@ -22,11 +22,7 @@ suites:
     run_list:
       - recipe[ruby]
       - recipe[deploy::default]
-    attributes: {
-      deploy: {
-        public_key: ''
-      }
-    }
+    attributes: {}
     verifier:
       inspec_tests:
         - test/integration/default
