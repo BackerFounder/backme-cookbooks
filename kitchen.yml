@@ -21,7 +21,7 @@ suites:
     data_bags_path: "test/data_bags"
     run_list:
       - recipe[ruby]
-      - recipe[deploy::default]
+      - recipe[deploy]
     attributes: {}
     verifier:
       inspec_tests:

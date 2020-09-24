@@ -11,3 +11,4 @@ raise "Unsupported app_source type: #{app['app_source']['type']}" unless app['ap
 include_recipe 'deploy::add_known_host'
 include_recipe 'deploy::add_rsa_keys'
 include_recipe 'deploy::sync_repo'
+include_recipe 'deploy::nginx'
