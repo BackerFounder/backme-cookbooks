@@ -22,7 +22,8 @@ describe file('/srv/www/backme/Gemfile') do
   it { should exist }
 end
 
-describe package('nginx') do
+describe service('nginx') do
   it { should be_installed }
+  it { should be_enabled }
+  it { should be_running }
 end
-
