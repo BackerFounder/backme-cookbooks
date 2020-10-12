@@ -5,23 +5,30 @@
 # Copyright:: 2020, BackerFounder, All Rights Reserved.
 
 directory node['nodejs']['nvm_dir'] do
-  user node['nodejs']['user']
-  group node['nodejs']['group']
+  user 'root'
+  group 'root'
   recursive true
   mode '0755'
 end
 
-directory File.join('home', node['deploy_user']['home'], '.config') do
-  owner node['deploy_user']['user']
-  group node['deploy_user']['group']
+directory File.join('home', node['nodejs']['home'], '.config') do
+  owner node['nodejs']['user']
+  group node['nodejs']['group']
   mode '0700'
 end
 
-execute "Run script to install NVM #{node['nodejs']['nvm_version']} in #{node['nodejs']['nvm_dir']}" do
-  user node['nodejs']['user']
-  group node['nodejs']['group']
-  command "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/#{node['nodejs']['nvm_version']}/install.sh | NVM_DIR=\"#{node['nodejs']['nvm_dir']}\" bash"
-  environment ({'HOME' => node['nodejs']['home'], 'USER' => node['nodejs']['user']})
+bash 'Install nvm' do
+  user 'root'
+  group 'root'
+  code <<-EOH
+    export NVM_DIR=#{node['nodejs']['nvm_dir']}
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/#{node['nodejs']['nvm_version']}/install.sh | bash
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    nvm install #{node['nodejs']['version']}
+    export PATH=$PATH:#{node['nodejs']['nvm_dir']}/versions/node/#{node['nodejs']['version']}/bin
+  EOH
+  environment ({'HOME' => "home/#{node['nodejs']['home']}", 'USER' => node['nodejs']['user']})
 end
 
 template '/etc/profile.d/nvm.sh' do
@@ -38,31 +45,24 @@ bash 'source nvm.sh' do
   group node['nodejs']['group']
   code <<-EOH
     source /etc/profile
-    sudo chown -R $USER:$(id -gn $USER) home/deploy/.config
-    node -v
-    whoami
   EOH
-  environment ({'HOME' => node['nodejs']['home'], 'USER' => node['nodejs']['user']})
+  environment ({'HOME' => "home/#{node['nodejs']['home']}", 'USER' => node['nodejs']['user']})
 end
 
-# include_recipe "node::yarn"
+include_recipe 'node::yarn'
 
-# execute "NVM use node version: #{node['nodejs']['version']}" do
-#   user node['nodejs']['user']
-#   group node['nodejs']['group']
-#   command "nvm use #{node['nodejs']['version']}"
-# end
+ruby_block 'Check Yarn is installed and get the current version' do
+  block do
+    Chef::Log.info("The current Node.js version is #{shell_out('source /etc/profile && node -v', user: node['nodejs']['user']).stdout}")
+    Chef::Log.info("The current Yarn version is #{shell_out('yarn -v', user: node['nodejs']['user']).stdout}")
+  end
+end
 
-execute 'check' do
+bash 'check' do
   user node['nodejs']['user']
   group node['nodejs']['group']
-  command 'node -v'
-  environment ({'HOME' => node['nodejs']['home'], 'USER' => node['nodejs']['user']})
+  code <<-EOH
+    node -v
+  EOH
+  environment ({'HOME' => "home/#{node['nodejs']['home']}", 'USER' => node['nodejs']['user']})
 end
-
-# ruby_block 'Check Yarn is installed and get the current version' do
-#   block do
-#     Chef::Log.info("The current Node.js version is #{shell_out('node -v', user: node['nodejs']['user']).stdout}")
-#     # Chef::Log.info("The current Yarn version is #{shell_out('yarn -v', user: node['nodejs']['user']).stdout}")
-#   end
-# end
