@@ -1,11 +1,26 @@
 DEPENDENCIES
   deploy
     path: deploy
+  deploy_user
+    path: deploy_user
+  node
+    path: node
   ruby
     path: ruby
+  setup
+    path: setup
 
 GRAPH
   deploy (0.1.0)
+  deploy_user (0.1.0)
+  node (0.1.0)
+  ohai (5.3.0)
   ruby (0.1.0)
     ruby_rbenv (~> 2.0.9)
   ruby_rbenv (2.0.9)
+  setup (0.1.0)
+    swap (~> 2.2)
+  swap (2.2.2)
+    sysctl (>= 1.0)
+  sysctl (1.1.0)
+    ohai (>= 5.0)

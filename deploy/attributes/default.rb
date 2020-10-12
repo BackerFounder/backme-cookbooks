@@ -1,8 +1,6 @@
-case node['platform']
-when 'ubuntu'
-  default['deploy']['user'] = 'root'
-  default['deploy']['group'] = 'root'
-  default['deploy']['home'] = '/root'
-end
+# frozen_string_literal: true
 
+default['deploy']['user'] = ''
+default['deploy']['group'] = ''
+default['deploy']['home'] = ''
 default['deploy']['git_host'] = 'github.com'

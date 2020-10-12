@@ -7,11 +7,6 @@ describe file('/etc/ssh/ssh_known_hosts') do
   its('content') { should match(%r{github\.com\ ssh-rsa}) }
 end
 
-describe key_rsa('/root/.ssh/id_rsa') do
-  it { should be_private }
-  its('key_length') { should eq 2048 }
-end
-
 describe file('/srv/www/backme') do
   its('type') { should eq :directory }
   it { should be_directory }
