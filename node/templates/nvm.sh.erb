@@ -1,9 +1,5 @@
 if [ -f "<%= File.join(nvm_dir, 'nvm.sh')%>" ]; then
-  # . "<%= File.join(nvm_dir, 'nvm.sh')%>"
-  export NVM_DIR="<%= nvm_dir%>"
+  export NVM_DIR="<%= nvm_dir %>"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  nvm install <%= nodejs_version %>
-  export NODE_PATH=$NODE_PATH:`npm root -g`
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 fi
-
-

@@ -23,10 +23,10 @@ suites:
       - recipe[setup]
       - recipe[deploy_user]
       - recipe[node]
-      # - recipe[ruby]
-      # - recipe[ruby::unicorn]
-      # - recipe[deploy::setup]
-      # - recipe[deploy::deploy]
+      - recipe[ruby]
+      - recipe[ruby::unicorn]
+      - recipe[deploy::setup]
+      - recipe[deploy::deploy]
     attributes: {}
     verifier:
       inspec_tests:

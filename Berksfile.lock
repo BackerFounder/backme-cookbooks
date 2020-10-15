@@ -5,6 +5,7 @@ DEPENDENCIES
     path: deploy_user
   node
     path: node
+  ohai (~> 5.2.5)
   ruby
     path: ruby
   setup
@@ -14,7 +15,7 @@ GRAPH
   deploy (0.1.0)
   deploy_user (0.1.0)
   node (0.1.0)
-  ohai (5.3.0)
+  ohai (5.2.5)
   ruby (0.1.0)
     ruby_rbenv (~> 2.0.9)
   ruby_rbenv (2.0.9)

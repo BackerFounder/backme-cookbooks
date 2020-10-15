@@ -15,6 +15,8 @@ include_recipe 'deploy::sync_repo'
 
 execute 'bundle install' do
   cwd app_path
+  user node['deploy']['user']
+  group node['deploy']['group']
   command 'bundle install --deployment --frozen'
 end
 
@@ -31,14 +33,14 @@ directory File.join(app_path, 'shared', 'pids') do
   owner node['deploy']['user']
   group node['deploy']['group']
   recursive true
-  mode '0700'
+  mode '0755'
 end
 
-directory File.join(app_path, 'shared', 'socket') do
+directory File.join(app_path, 'shared', 'sockets') do
   owner node['deploy']['user']
   group node['deploy']['group']
   recursive true
-  mode '0700'
+  mode '0755'
 end
 
 directory File.join(app_path, 'shared', 'log') do
@@ -48,19 +50,27 @@ directory File.join(app_path, 'shared', 'log') do
   mode '0700'
 end
 
-execute 'Install JS dependencies' do
+bash 'Install JS dependencies' do
+  cwd app_path
   user node['deploy']['user']
   group node['deploy']['group']
-  cwd app_path
-  command "yarn install --check-files"
+  code <<-EOH
+    source /etc/profile.d/nvm.sh
+    yarn install --check-files
+    bundle exec unicorn -c #{File.join(app_path, 'config', 'unicorn.rb')} -D
+  EOH
+  environment 'HOME' => "/home/#{node['deploy']['home']}",
+              'USER' => node['deploy']['user']
 end
 
-execute 'Run unicorn as daemon' do
-  user node['deploy']['user']
-  group node['deploy']['group']
-  cwd app_path
-  command "bundle exec unicorn -c #{File.join(app_path, 'config', 'unicorn.rb')} -D"
-end
+# execute 'Run unicorn as daemon' do
+#   user node['deploy']['user']
+#   group node['deploy']['group']
+#   cwd app_path
+#   command "bundle exec unicorn -c #{File.join(app_path, 'config', 'unicorn.rb')} -D"
+#   environment 'HOME' => "/home/#{node['deploy']['home']}",
+#               'USER' => node['deploy']['user']l
+# end
 
 # execute 'run unicorn_rails' do
 #   command "unicorn_rails -c #{File.join(conf_path, 'unicorn.rb')} -D"
