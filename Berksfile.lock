@@ -3,6 +3,8 @@ DEPENDENCIES
     path: deploy
   deploy_user
     path: deploy_user
+  nginx
+    path: nginx
   node
     path: node
   ohai (~> 5.2.5)
@@ -10,10 +12,13 @@ DEPENDENCIES
     path: ruby
   setup
     path: setup
+  unicorn
+    path: unicorn
 
 GRAPH
   deploy (0.1.0)
   deploy_user (0.1.0)
+  nginx (0.1.0)
   node (0.1.0)
   ohai (5.2.5)
   ruby (0.1.0)
@@ -25,3 +30,5 @@ GRAPH
     sysctl (>= 1.0)
   sysctl (1.1.0)
     ohai (>= 5.0)
+  unicorn (0.1.0)
+    ruby_rbenv (~> 2.0.9)

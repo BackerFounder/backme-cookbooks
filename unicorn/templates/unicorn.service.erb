@@ -1,0 +1,33 @@
+[Unit]
+Description = unicorn Rack application server %i
+Wants = unicorn.socket
+After = unicorn.socket
+
+[Service]
+Environment = RAILS_ENV=production
+WorkingDirectory = <%= app_path %>/current
+ExecStart = <%= node['unicorn']['bundle_path'] %> exec unicorn -c <%= app_path %>/shared/config/unicorn.rb <%= app_path %>/current/config.ru
+PIDFile = <%= app_path %>/shared/pids/unicorn.pid
+# NonBlocking MUST be true if using socket activation with unicorn.
+# Otherwise, there's a small window in-between when the non-blocking
+# flag is set by us and our accept4 call where systemd can momentarily
+# make the socket blocking, causing us to block on accept4:
+NonBlocking = true
+Sockets = unicorn.socket
+
+KillSignal = SIGQUIT
+User = <%= node['unicorn']['user'] %>
+Group = <%= node['unicorn']['group'] %>
+ExecReload = /bin/kill -HUP $MAINPID
+
+# This is based on the Unicorn::Configurator#timeout directive,
+# adding a few seconds for scheduling differences:
+TimeoutStopSec = 62
+
+# Only kill the master process, it may be harmful to signal
+# workers via default "control-group" setting since some
+# Ruby extensions and applications misbehave on interrupts
+KillMode = process
+
+[Install]
+WantedBy = multi-user.target

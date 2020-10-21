@@ -23,19 +23,10 @@ execute 'Append script for adding gem path in /etc/profile.d/rbenv.sh' do
   not_if 'grep $(gem env GEM_PATH) /etc/profile.d/rbenv.sh'
 end
 
-script 'source rbenv.sh' do
-  interpreter 'bash'
-  user node['ruby']['user']
-  group node['ruby']['group']
-  code <<-EOH
-    source /etc/profile.d/rbenv.sh
-  EOH
-end
-
 ruby_block 'Check Ruby is installed and get the current version' do
   block do
-    Chef::Log.info("The current Ruby version is #{shell_out('ruby -v', user: node['ruby']['user']).stdout}")
-    Chef::Log.info("The current RubyGem version is #{shell_out('gem -v', user: node['ruby']['user']).stdout}")
+    Chef::Log.info("The current Ruby version is #{shell_out('source /etc/profile && ruby -v', user: node['ruby']['user']).stdout}")
+    Chef::Log.info("The current RubyGem version is #{shell_out('source /etc/profile && gem -v', user: node['ruby']['user']).stdout}")
   end
 end
 

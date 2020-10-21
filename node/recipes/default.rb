@@ -45,7 +45,7 @@ include_recipe 'node::yarn'
 
 ruby_block 'Check Yarn is installed and get the current version' do
   block do
-    Chef::Log.info("The current Node.js version is #{shell_out('node -v', user: node['nodejs']['user']).stdout}")
+    Chef::Log.info("The current Node.js version is #{shell_out('source /etc/profile && node -v', user: node['nodejs']['user']).stdout}")
     Chef::Log.info("The current Yarn version is #{shell_out('yarn -v', user: node['nodejs']['user']).stdout}")
   end
 end

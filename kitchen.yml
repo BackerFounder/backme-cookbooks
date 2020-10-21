@@ -24,10 +24,16 @@ suites:
       - recipe[deploy_user]
       - recipe[node]
       - recipe[ruby]
-      - recipe[ruby::unicorn]
-      - recipe[deploy::setup]
+      - recipe[nginx::setup]
+      - recipe[nginx::unicorn_config]
+      - recipe[unicorn::setup]
       - recipe[deploy::deploy]
-    attributes: {}
+      - recipe[unicorn::deploy]
+    attributes: {
+      "deploy": {
+        "custom_json_provided": false
+      }
+    }
     verifier:
       inspec_tests:
         - test/integration/default

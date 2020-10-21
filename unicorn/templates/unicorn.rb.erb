@@ -1,7 +1,7 @@
 # set path to the application
 app_dir = "<%= app_path %>"
 shared_dir = "#{app_dir}/shared"
-working_directory app_dir
+working_directory "#{app_dir}/current"
 
 # Set unicorn options
 worker_processes 2

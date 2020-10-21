@@ -8,14 +8,14 @@
 # For more infomation, see: https://github.com/chef/chef/issues/8416
 
 rbenv_script "Install unicorn" do
-  user node['ruby']['user']
-  group node['ruby']['group']
-  code "gem install unicorn -N -v #{node['ruby']['unicorn_version']} --user-install"
+  user 'root'
+  group 'root'
+  code "gem install unicorn -N -v #{node['ruby']['unicorn_version']}"
 end
 
 rbenv_script "Install rack" do
-  user node['ruby']['user']
-  group node['ruby']['group']
-  code "gem install rack -N -v #{node['ruby']['rack_version']} --user-install"
+  user 'root'
+  group 'root'
+  code "gem install rack -N -v #{node['ruby']['rack_version']}"
 end
 
