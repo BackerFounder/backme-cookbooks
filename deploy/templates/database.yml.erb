@@ -2,19 +2,19 @@ development:
   adapter: <%= node['deploy']['db_adapter'] %>
   encoding: <%= node['deploy']['db_encoding'] %>
   pool: <%= node['deploy']['db_pool'] %>
-  host: <%= node['deploy']['db_host'] %>
+  host: <%= rds['address'] %>
   database: <%= node['deploy']['db_name'] %>
-  username: <%= node['deploy']['db_username'] %>
-  password: <%= node['deploy']['db_password'] %>
+  username: <%= rds['db_user'] %>
+  password: <%= rds['db_password'] %>
   reconnect: true
-  port: <%= node['deploy']['db_port'] %>
+  port: <%= rds['port'] %>
 production:
   adapter: <%= node['deploy']['db_adapter'] %>
   encoding: <%= node['deploy']['db_encoding'] %>
   pool: <%= node['deploy']['db_pool'] %>
-  host: <%= node['deploy']['db_host'] %>
+  host: <%= rds['address'] %>
   database: <%= node['deploy']['db_name'] %>
-  username: <%= node['deploy']['db_username'] %>
-  password: <%= node['deploy']['db_password'] %>
+  username: <%= rds['db_user'] %>
+  password: <%= rds['db_password'] %>
   reconnect: true
-  port: <%= node['deploy']['db_port'] %>
+  port: <%= rds['port'] %>

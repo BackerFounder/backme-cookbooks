@@ -6,6 +6,7 @@
 require 'yaml'
 app = search(:aws_opsworks_app).first
 app_path = "/srv/www/#{app['shortname']}"
+rds = search(:aws_opsworks_rds_db_instance).first
 
 raise "Unsupported app_source type: #{app['app_source']['type']}" unless app['app_source']['type'] == 'git'
 
@@ -40,6 +41,7 @@ template File.join(app_path, 'current', 'config', 'database.yml') do
   owner node['deploy']['user']
   group node['deploy']['group']
   mode '0744'
+  helper(:rds) { rds }
 end
 
 file File.join(app_path, 'current', 'config', 'application.yml') do
@@ -71,4 +73,25 @@ bash 'Assets precompile' do
   environment 'RAILS_ENV' => 'production',
               'HOME' => "/home/#{node['deploy']['home']}",
               'USER' => node['deploy']['user']
+end
+
+
+execute "Upload assets to S3 bucket" do
+  cwd File.join(app_path, 'current')
+  command "aws s3 sync \
+#{::File.join('public', node['deploy']['public_output_path'], 'assets')} \
+#{::File.join(node['deploy']['s3_asset_path'], 'assets')} \
+--cache-control max-age=31536000,public \
+--acl public-read"
+end
+
+execute "Upload packs to S3 bucket" do
+  cwd File.join(app_path, 'current')
+  command "aws s3 sync \
+#{::File.join('public', node['deploy']['public_output_path'], 'packs')} \
+#{::File.join(node['deploy']['s3_asset_path'], 'packs')} \
+--exclude '*.map' \
+--exclude 'manifest.json*' \
+--cache-control max-age=31536000,public \
+--acl public-read"
 end
