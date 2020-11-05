@@ -5,7 +5,7 @@
 
 describe user('deploy') do
   it { should exist }
-  its('groups') { should include deploy }
+  its('groups') { should include 'deploy' }
   its('home') { should eq '/home/deploy' }
   its('shell') { should eq '/bin/bash' }
 end
