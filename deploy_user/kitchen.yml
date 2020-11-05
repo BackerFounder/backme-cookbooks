@@ -2,11 +2,8 @@
 driver:
   name: vagrant
 
-network:
-  - ["forwarded_port", { guest: 9000, host: 9000 }]
-
 provisioner:
-  product_name: chef
+  name: chef_zero
   product_version: 12
   always_update_cookbooks: true
 
@@ -18,12 +15,9 @@ platforms:
 
 suites:
   - name: default
-    data_bags_path: "test/data_bags"
     run_list:
-      - recipe[deploy_user]
-      - recipe[ruby]
-      - recipe[deploy::default]
-    attributes: {}
+      - recipe[deploy_user::default]
     verifier:
       inspec_tests:
         - test/integration/default
+    attributes:

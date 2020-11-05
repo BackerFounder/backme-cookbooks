@@ -1,7 +1,3 @@
-case node['platform']
-when 'ubuntu'
-  default['deploy']['user'] = 'deploy'
-  default['deploy']['group'] = 'deploy'
-end
-
+default['deploy']['user'] = ''
+default['deploy']['group'] = ''
 default['deploy']['git_host'] = 'github.com'
