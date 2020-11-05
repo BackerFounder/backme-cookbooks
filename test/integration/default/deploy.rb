@@ -3,11 +3,11 @@
 # The InSpec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec/resources/
 
-describe file('/etc/ssh/ssh_known_hosts') do
+describe file('/home/deploy/.ssh/known_hosts') do
   its('content') { should match(%r{github\.com\ ssh-rsa}) }
 end
 
-describe key_rsa('/root/.ssh/id_rsa') do
+describe key_rsa('/home/deploy/.ssh/id_rsa') do
   it { should be_private }
   its('key_length') { should eq 2048 }
 end
