@@ -7,6 +7,6 @@
 execute "add #{node['deploy']['git_host']} to known_hosts" do
   user node['deploy']['user']
   group node['deploy']['group']
-  command "ssh-keyscan #{node['deploy']['git_host']} >> /etc/ssh/ssh_known_hosts"
-  not_if "grep -q \"`ssh-keyscan #{node['deploy']['git_host']}`\" /etc/ssh/ssh_known_hosts"
+  command "ssh-keyscan #{node['deploy']['git_host']} >> ~/.ssh/known_hosts"
+  not_if "grep -q \"`ssh-keyscan #{node['deploy']['git_host']}`\" ~/.ssh/known_hosts"
 end
