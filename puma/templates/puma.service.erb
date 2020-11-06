@@ -1,0 +1,18 @@
+# For more info: https://github.com/puma/puma/blob/master/docs/systemd.md
+
+[Unit]
+Description=Puma HTTP Server
+After=network.target
+
+[Service]
+Type=simple
+User=<%= deploy_user %>
+WorkingDirectory=<%= app_path %>
+Environment=RAILS_ENV=production
+ExecStart=<%= bundle_path %> exec puma -C <%= app_path %>/config/puma.rb <%= app_path %>/config.ru
+ExecReload=/bin/kill -s SIGUSR1 $MAINPID
+ExecRestart=/bin/kill -s SIGUSR2 $MAINPID
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
