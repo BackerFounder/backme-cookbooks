@@ -10,6 +10,7 @@ deploy_home = node.run_state[:deploy_home]
 
 app = search(:aws_opsworks_app).first
 app_path = "/srv/www/#{app['shortname']}"
+rds = search(:aws_opsworks_rds_db_instance).first
 
 if node['bundle'] && node['bundle']['config']
   node['bundle']['config'].each do |config|
@@ -39,7 +40,13 @@ execute 'Yarn install' do
   environment 'HOME' => deploy_home
 end
 
-# TODO: database.yml
+template "#{app_path}/config/database.yml" do
+  source 'database.yml.erb'
+  owner deploy_user
+  group deploy_group
+  mode '0744'
+  helper(:rds) { rds }
+end
 
 # TODO: application.yml
 
