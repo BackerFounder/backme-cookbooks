@@ -8,3 +8,6 @@ default['deploy']['db_encoding'] = 'unicode'
 default['deploy']['db_pool'] = 5
 default['deploy']['db_name'] = ''
 default['deploy']['db_port'] = '5432'
+
+### Application settings
+default['deploy']['application_yml'] = {}

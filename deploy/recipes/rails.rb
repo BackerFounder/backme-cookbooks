@@ -48,7 +48,12 @@ template "#{app_path}/config/database.yml" do
   helper(:rds) { rds }
 end
 
-# TODO: application.yml
+file "#{app_path}/config/application.yml" do
+  content node['deploy']['application_yml'].to_h.to_yaml
+  mode '0744'
+  owner deploy_user
+  group deploy_group
+end
 
 execute 'Migrate database' do
   cwd app_path
