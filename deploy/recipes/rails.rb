@@ -61,7 +61,7 @@ execute 'Migrate database' do
   user deploy_user
   group deploy_group
   command "#{bundle_path} exec rake db:migrate"
-  environment environment 'HOME' => deploy_home, 'RAILS_ENV' => 'production'
+  environment environment 'HOME' => deploy_home, 'RAILS_ENV' => node['deploy']['rails_env']
 end
 
 execute 'Assets precompile' do
@@ -69,7 +69,7 @@ execute 'Assets precompile' do
   user deploy_user
   group deploy_group
   command "#{bundle_path} exec rake assets:precompile"
-  environment environment 'HOME' => deploy_home, 'RAILS_ENV' => 'production'
+  environment environment 'HOME' => deploy_home, 'RAILS_ENV' => node['deploy']['rails_env']
 end
 
 # TODO: Upload assets to S3 bucket

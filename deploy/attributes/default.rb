@@ -10,4 +10,5 @@ default['deploy']['db_name'] = ''
 default['deploy']['db_port'] = '5432'
 
 ### Application settings
+default['deploy']['rails_env'] = 'production'
 default['deploy']['application_yml'] = {}
