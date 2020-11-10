@@ -4,10 +4,16 @@
 #
 # Copyright:: 2020, The Authors, All Rights Reserved.
 
-ruby_block 'Check Bundler exist and store bundle path in run state' do
+bundle_path = '/usr/local/rbenv/shims/bundle'
+gem_path = '/usr/local/rbenv/shims/gem'
+ruby_path = '/usr/local/rbenv/shims/ruby'
+
+ruby_block 'Check version of Ruby' do
   block do
-    bundle_path = shell_out('which bundle').stdout
-    raise 'Could not find bundle' if bundle_path.nil? || bundle_path.empty?
-    node.run_state[:bundle_path] = bundle_path
+    Chef::Log.info("Ruby version is #{shell_out("#{ruby_path} -v").stdout}")
   end
 end
+
+node.run_state[:bundle_path] = bundle_path
+node.run_state[:gem_path] = gem_path
+node.run_state[:ruby_path] = ruby_path

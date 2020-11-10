@@ -7,6 +7,7 @@
 deploy_user = node.run_state[:deploy_user]
 deploy_group = node.run_state[:deploy_group]
 deploy_home = node.run_state[:deploy_home]
+bundle_path = node.run_state[:bundle_path]
 
 app = search(:aws_opsworks_app).first
 app_path = "/srv/www/#{app['shortname']}"
@@ -18,7 +19,7 @@ if node['bundle'] && node['bundle']['config']
       cwd app_path
       user deploy_user
       group deploy_group
-      command "bundle config --local #{config['key']} #{config['value']}"
+      command "#{bundle_path} config --local #{config['key']} #{config['value']}"
       environment 'HOME' => deploy_home
     end
   end
@@ -28,7 +29,7 @@ execute 'Bundle install' do
   cwd app_path
   user deploy_user
   group deploy_group
-  command 'bundle install --deployment --without development test'
+  command "#{bundle_path} install --deployment --without development test"
   environment 'HOME' => deploy_home
 end
 
@@ -59,7 +60,7 @@ execute 'Migrate database' do
   cwd app_path
   user deploy_user
   group deploy_group
-  command 'bundle exec rake db:migrate'
+  command "#{bundle_path} exec rake db:migrate"
   environment environment 'HOME' => deploy_home, 'RAILS_ENV' => 'production'
 end
 
@@ -67,7 +68,7 @@ execute 'Assets precompile' do
   cwd app_path
   user deploy_user
   group deploy_group
-  command 'bundle exec rake assets:precompile'
+  command "#{bundle_path} exec rake assets:precompile"
   environment environment 'HOME' => deploy_home, 'RAILS_ENV' => 'production'
 end
 
