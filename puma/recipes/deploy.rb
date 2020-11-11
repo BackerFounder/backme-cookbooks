@@ -16,6 +16,7 @@ directory "#{app_path}/tmp/pids" do
   recursive true
 end
 
-service 'puma' do
-  action :restart
+systemd_unit 'puma' do
+  content '/etc/systemd/system/puma.service'
+  action :reload_or_restart
 end
