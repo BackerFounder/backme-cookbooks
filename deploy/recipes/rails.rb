@@ -13,6 +13,12 @@ app = search(:aws_opsworks_app).first
 app_path = "/srv/www/#{app['shortname']}"
 rds = search(:aws_opsworks_rds_db_instance).first
 
+directory "#{app_path}/tmp/cache" do
+  owner deploy_user
+  group deploy_group
+  recursive true
+end
+
 if node['bundle'] && node['bundle']['config']
   node['bundle']['config'].each do |config|
     execute "Bundle Config: #{config['key']}" do
