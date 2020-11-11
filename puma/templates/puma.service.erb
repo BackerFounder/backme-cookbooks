@@ -9,6 +9,7 @@ Type=simple
 User=<%= deploy_user %>
 WorkingDirectory=<%= app_path %>
 Environment=RAILS_ENV=<%= node['deploy']['rails_env'] %>
+Environment=RAILS_SERVE_STATIC_FILES=true
 ExecStart=<%= bundle_path %> exec puma -C <%= app_path %>/config/puma.rb <%= app_path %>/config.ru
 ExecReload=/bin/kill -s SIGUSR1 $MAINPID
 ExecRestart=/bin/kill -s SIGUSR2 $MAINPID

@@ -12,3 +12,5 @@ default['deploy']['db_port'] = '5432'
 ### Application settings
 default['deploy']['rails_env'] = 'production'
 default['deploy']['application_yml'] = {}
+default['deploy']['public_output_path'] = ''
+default['deploy']['s3_asset_path'] = ''
