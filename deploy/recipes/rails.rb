@@ -77,3 +77,27 @@ execute 'Assets precompile' do
   command "#{bundle_path} exec rake assets:precompile"
   environment environment 'HOME' => deploy_home, 'RAILS_ENV' => node['deploy']['rails_env']
 end
+
+execute "Upload assets to S3 bucket" do
+  cwd app_path
+  user deploy_user
+  group deploy_group
+  command "aws s3 sync \
+    #{::File.join('public', node['deploy']['public_output_path'], 'assets')} \
+    #{::File.join(node['deploy']['s3_asset_path'], 'assets')} \
+    --cache-control max-age=31536000,public \
+    --acl public-read"
+end
+
+execute "Upload packs to S3 bucket" do
+  cwd app_path
+  user deploy_user
+  group deploy_group
+  command "aws s3 sync \
+    #{::File.join('public', node['deploy']['public_output_path'], 'packs')} \
+    #{::File.join(node['deploy']['s3_asset_path'], 'packs')} \
+    --exclude '*.map' \
+    --exclude 'manifest.json*' \
+    --cache-control max-age=31536000,public \
+    --acl public-read"
+end

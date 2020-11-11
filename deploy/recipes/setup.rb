@@ -15,3 +15,5 @@ apt_package 'libpq-dev'
 
 # gem `ovirt-engine-sdk` uses libxml2
 apt_package 'libxml2-dev'
+
+include_recipe 'deploy::aws_cli'
