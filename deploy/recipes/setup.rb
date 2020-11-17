@@ -15,3 +15,6 @@ apt_package 'libpq-dev'
 
 # gem `ovirt-engine-sdk` uses libxml2
 apt_package 'libxml2-dev'
+
+# upload public assets & packs to s3
+apt_package 'awscli'
