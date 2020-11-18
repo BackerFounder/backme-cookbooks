@@ -26,9 +26,12 @@ suites:
       - recipe[node::yarn]
       - recipe[ruby]
       - recipe[puma::setup]
+      - recipe[nginx::setup]
+      - recipe[nginx::puma_config]
       - recipe[deploy]
       - recipe[deploy::rails]
       - recipe[puma::deploy]
+      - recipe[nginx::deploy]
     attributes: {}
     verifier:
       inspec_tests:
