@@ -10,10 +10,12 @@ deploy_group = node.run_state[:deploy_group]
 app = search(:aws_opsworks_app).first
 app_path = "/srv/www/#{app['shortname']}"
 
-directory "#{app_path}/tmp/pids" do
-  owner deploy_user
-  group deploy_group
-  recursive true
+%w{pids sockets}.each do |dir|
+  directory "#{app_path}/tmp/#{dir}" do
+    owner deploy_user
+    group deploy_group
+    recursive true
+  end
 end
 
 systemd_unit 'puma' do
