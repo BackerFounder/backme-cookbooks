@@ -3,6 +3,8 @@ DEPENDENCIES
     path: deploy
   deploy_user
     path: deploy_user
+  nginx
+    path: nginx
   node
     path: node
   puma
@@ -13,6 +15,7 @@ DEPENDENCIES
 GRAPH
   deploy (0.1.0)
   deploy_user (0.1.0)
+  nginx (0.1.0)
   node (0.1.0)
   puma (0.1.0)
   ruby (0.1.0)
