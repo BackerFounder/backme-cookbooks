@@ -40,13 +40,11 @@ template '/etc/nginx/nginx.conf' do
   mode 0644
 end
 
-%w{nxensite nxdissite}.each do |nxscript|
-  template "/usr/sbin/#{nxscript}" do
-    source "#{nxscript}.erb"
-    mode 0755
-    owner 'root'
-    group 'root'
-  end
+template '/usr/sbin/nxensite' do
+  source 'nxensite.erb'
+  mode 0755
+  owner 'root'
+  group 'root'
 end
 
 
