@@ -1,4 +1,6 @@
 DEPENDENCIES
+  alb_support
+    path: alb_support
   deploy
     path: deploy
   deploy_user
@@ -15,6 +17,7 @@ DEPENDENCIES
     path: sidekiq
 
 GRAPH
+  alb_support (0.1.0)
   deploy (0.1.0)
   deploy_user (0.1.0)
   nginx (0.1.0)
