@@ -13,7 +13,7 @@ end
 
 execute 'install gcc' do
   user 'root'
-  command 'apt-get install gcc g++ gcc-7 g++-7'
+  command 'apt-get install -y gcc g++ gcc-7 g++-7'
   notifies :run, 'execute[update-alternatives]', :immediately
   action :nothing
 end
