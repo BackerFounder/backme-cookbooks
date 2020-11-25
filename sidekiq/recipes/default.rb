@@ -7,6 +7,7 @@
 deploy_user = node.run_state[:deploy_user]
 deploy_group = node.run_state[:deploy_group]
 bundle_path = node.run_state[:bundle_path]
+rails_env = node.run_state[:rails_env]
 
 app = search(:aws_opsworks_app).first
 app_path = "/srv/www/#{app['shortname']}"
@@ -18,6 +19,7 @@ template '/etc/systemd/system/sidekiq.service' do
   helper(:deploy_group) { deploy_group }
   helper(:bundle_path) { bundle_path }
   helper(:app_path) { app_path }
+  helper(:rails_env) { rails_env }
   notifies :run, 'execute[daemon-reload]', :immediately
 end
 
