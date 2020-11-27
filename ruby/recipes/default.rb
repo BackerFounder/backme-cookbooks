@@ -10,6 +10,13 @@ rbenv_global node['ruby']['version']
 
 include_recipe 'ruby::pass_vars'
 
+template '/etc/profile.d/path.sh' do
+  source 'path.sh.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+end
+
 ruby_block 'Check Ruby version' do
   block do
     command = "#{node.run_state[:ruby_path]} -v"
