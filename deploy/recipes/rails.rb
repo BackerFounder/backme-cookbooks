@@ -8,6 +8,7 @@ deploy_user = node.run_state[:deploy_user]
 deploy_group = node.run_state[:deploy_group]
 deploy_home = node.run_state[:deploy_home]
 bundle_path = node.run_state[:bundle_path]
+rails_env = node.run_state[:rails_env]
 
 app = search(:aws_opsworks_app).first
 app_path = "/srv/www/#{app['shortname']}"
@@ -71,7 +72,7 @@ execute 'Migrate database' do
   user deploy_user
   group deploy_group
   command "#{bundle_path} exec rake db:migrate"
-  environment environment 'HOME' => deploy_home, 'RAILS_ENV' => node['deploy']['rails_env']
+  environment environment 'HOME' => deploy_home, 'RAILS_ENV' => rails_env
 end
 
 execute 'Assets precompile' do
@@ -79,10 +80,10 @@ execute 'Assets precompile' do
   user deploy_user
   group deploy_group
   command "#{bundle_path} exec rake assets:precompile"
-  environment environment 'HOME' => deploy_home, 'RAILS_ENV' => node['deploy']['rails_env']
+  environment environment 'HOME' => deploy_home, 'RAILS_ENV' => rails_env
 end
 
-if node['deploy']['rails_env'] == 'production'
+if rails_env == 'production'
   execute "Upload assets to S3 bucket" do
     cwd app_path
     user deploy_user

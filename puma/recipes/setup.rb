@@ -6,6 +6,7 @@
 
 deploy_user = node.run_state[:deploy_user]
 bundle_path = node.run_state[:bundle_path]
+rails_env = node.run_state[:rails_env]
 
 app = search(:aws_opsworks_app).first
 app_path = "/srv/www/#{app['shortname']}"
@@ -15,4 +16,5 @@ template "/etc/systemd/system/puma.service" do
   helper(:app_path) { app_path }
   helper(:bundle_path) { bundle_path }
   helper(:deploy_user) { deploy_user }
+  helper(:rails_env) { rails_env }
 end

@@ -12,7 +12,7 @@ Type=notify
 WatchdogSec=10
 
 WorkingDirectory=<%= app_path %>
-ExecStart=<%= bundle_path %> exec sidekiq -e <%= node['deploy']['rails_env'] %>
+ExecStart=<%= bundle_path %> exec sidekiq -e <%= rails_env %>
 
 User=<%= deploy_user %>
 Group=<%= deploy_group %>
