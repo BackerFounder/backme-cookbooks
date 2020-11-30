@@ -11,6 +11,8 @@ DEPENDENCIES
     path: puma
   ruby
     path: ruby
+  sidekiq
+    path: sidekiq
 
 GRAPH
   deploy (0.1.0)
@@ -21,3 +23,4 @@ GRAPH
   ruby (0.1.0)
     ruby_rbenv (~> 2.0.9)
   ruby_rbenv (2.0.9)
+  sidekiq (0.1.0)
