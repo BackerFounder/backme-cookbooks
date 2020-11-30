@@ -9,6 +9,8 @@ DEPENDENCIES
     path: nginx
   node
     path: node
+  papertrail
+    path: papertrail
   puma
     path: puma
   ruby
@@ -24,6 +26,7 @@ GRAPH
   deploy_user (0.1.0)
   nginx (0.1.0)
   node (0.1.0)
+  papertrail (0.1.0)
   puma (0.1.0)
   ruby (0.1.0)
     ruby_rbenv (~> 2.0.9)
