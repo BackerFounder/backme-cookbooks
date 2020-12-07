@@ -14,6 +14,9 @@ apt_package 'libcurl4-gnutls-dev' do
   notifies :update, 'apt_update[update]', :before
 end
 
+# gem `mini_magick` uses imagemagick
+apt_package 'imagemagick'
+
 # gem `pg` uses libpq
 apt_package 'libpq-dev'
 
