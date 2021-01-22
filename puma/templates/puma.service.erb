@@ -9,6 +9,9 @@ Type=simple
 User=<%= deploy_user %>
 WorkingDirectory=<%= app_path %>
 Environment=RAILS_ENV=<%= rails_env %>
+<% if serve_static_files %>
+  Environment=RAILS_SERVE_STATIC_FILES=true
+<% end %>
 # ENV['PUMA_BINDING_SOCKET'] is used in config/puma.rb:L1
 Environment=PUMA_BINDING_SOCKET=true
 ExecStart=<%= bundle_path %> exec puma -C <%= app_path %>/config/puma.rb <%= app_path %>/config.ru
