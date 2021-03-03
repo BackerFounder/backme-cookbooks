@@ -17,3 +17,4 @@ chef_version '~> 12.0'
 # a Supermarket.
 #
 # source_url 'https://github.com/<insert_org_here>/ruby'
+depends 'logrotate', '~> 2.3.0'

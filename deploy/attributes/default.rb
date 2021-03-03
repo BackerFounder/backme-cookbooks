@@ -14,3 +14,8 @@ default['deploy']['rails_env'] = 'production'
 default['deploy']['application_yml'] = {}
 default['deploy']['public_output_path'] = ''
 default['deploy']['s3_asset_path'] = ''
+
+### Logrtate settings
+default['deploy']['logrotate_frequency'] = 'daily'
+default['deploy']['logrotate_options'] = %w(missingok compress delaycompress notifempty copytruncate)
+default['deploy']['logrotate_days'] = 30
