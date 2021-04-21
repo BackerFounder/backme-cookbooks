@@ -1,6 +1,7 @@
 source 'https://supermarket.chef.io'
 
 cookbook 'alb_support', path: './alb_support'
+cookbook 'cloud_watch', path: './cloud_watch'
 cookbook 'ruby', path: './ruby'
 cookbook 'deploy', path: './deploy'
 cookbook 'deploy_user', path: './deploy_user'
