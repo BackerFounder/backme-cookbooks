@@ -67,13 +67,15 @@ file "#{app_path}/config/application.yml" do
   group deploy_group
 end
 
-execute 'Migrate database' do
+
+execute "Migrate database: rake #{node['deploy']['migrate_rake']}" do
   cwd app_path
   user deploy_user
   group deploy_group
-  command "#{bundle_path} exec rake db:migrate"
+  command "#{bundle_path} exec rake #{node['deploy']['migrate_rake']}"
   environment environment 'HOME' => deploy_home, 'RAILS_ENV' => rails_env
 end
+
 
 execute 'Assets precompile' do
   cwd app_path
