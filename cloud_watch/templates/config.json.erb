@@ -5,10 +5,8 @@
    },
    "metrics":{
       "append_dimensions":{
-         "AutoScalingGroupName":"${aws:AutoScalingGroupName}",
-         "ImageId":"${aws:ImageId}",
-         "InstanceId":"${aws:InstanceId}",
-         "InstanceType":"${aws:InstanceType}"
+              "InstanceId":"${aws:InstanceId}",
+              "InstanceType":"${aws:InstanceType}"
       },
       "metrics_collected":{
          "collectd":{
@@ -20,8 +18,11 @@
             ],
             "metrics_collection_interval":30,
             "resources":[
-               "*"
-            ]
+               "/"
+            ],
+            "append_dimensions": {
+               "stackName": "<%= stack_name %>"
+            }
          },
          "statsd":{
             "metrics_aggregation_interval":30,

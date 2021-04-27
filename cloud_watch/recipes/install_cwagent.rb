@@ -8,6 +8,8 @@ deploy_user = node.run_state[:deploy_user]
 deploy_group = node.run_state[:deploy_group]
 deploy_home = node.run_state[:deploy_home]
 
+stack = search(:aws_opsworks_stack).first
+
 aws_path = ::File.join(deploy_home, '.aws')
 config_json_path = '/opt/aws/amazon-cloudwatch-agent/bin/config.json'
 
@@ -31,6 +33,7 @@ template config_json_path do
   source 'config.json.erb'
   owner deploy_user
   group deploy_group
+  helper(:stack_name) { stack['name'] }
 end
 
 template '/opt/aws/amazon-cloudwatch-agent/etc/common-config.toml' do
