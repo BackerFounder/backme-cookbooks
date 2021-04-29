@@ -1,6 +1,8 @@
 DEPENDENCIES
   alb_support
     path: alb_support
+  cloud_watch
+    path: cloud_watch
   deploy
     path: deploy
   deploy_user
@@ -22,8 +24,11 @@ DEPENDENCIES
 
 GRAPH
   alb_support (0.1.0)
+  cloud_watch (0.1.0)
   deploy (0.1.0)
+    logrotate (~> 2.3.0)
   deploy_user (0.1.0)
+  logrotate (2.3.0)
   nginx (0.1.0)
   node (0.1.0)
   papertrail (0.1.0)
