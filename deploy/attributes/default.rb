@@ -9,6 +9,9 @@ default['deploy']['db_pool'] = 5
 default['deploy']['db_name'] = ''
 default['deploy']['db_port'] = '5432'
 
+### Migration settings
+default['deploy']['migrate_rake'] = 'db:migrate'
+
 ### Application settings
 default['deploy']['rails_env'] = 'production'
 default['deploy']['application_yml'] = {}
